@@ -5,6 +5,9 @@ import java.math.BigDecimal;
 public class ContaModel {
     private Long numero;
     private BigDecimal saldo;
+    public ContaModel(long numero) {
+        
+    }
     public Long getNumero() {
         return numero;
     }
