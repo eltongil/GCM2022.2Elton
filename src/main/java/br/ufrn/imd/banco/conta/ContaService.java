@@ -1,18 +1,24 @@
 package br.ufrn.imd.banco.conta;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 public class ContaService {
-    public ContaModel checarNumero(long numero) {
+
+    private ContaRepository repository;
+
+    public ContaService() {
         ContaRepository repository = ContaRepository.getInstance();
-        ContaModel novaContaModel;
-        if (numero > 0) {
-            novaContaModel = new ContaModel(numero);
-            novaContaModel.setSaldo(new BigDecimal(0));
-            repository.addCliente(novaContaModel);
-        } else {
+    }
+
+    public ContaModel addClient(Long numero) {
+        if (this.verificarNumeroDisponivel(numero))
+            return repository.addCliente(new ContaModel(numero));
+        else
             return null;
-        }
-        return novaContaModel;
+    }
+
+    public Boolean verificarNumeroDisponivel(Long numero) {
+        return !repository.verificarNumeroUtilizado(numero);
     }
 }

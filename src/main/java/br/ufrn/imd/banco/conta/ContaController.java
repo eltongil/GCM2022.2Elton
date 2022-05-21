@@ -1,9 +1,17 @@
 package br.ufrn.imd.banco.conta;
 
+import java.math.BigDecimal;
+
 public class ContaController {
-    public ContaModel criarConta(long numero){
-        ContaModel novo = new ContaModel(numero);
-        ContaRepository.getInstance().addCliente(novo);
-        return novo;
+
+    private final ContaService service;
+
+    public ContaController(ContaService service) {
+        this.service = service;
     }
+
+    public ContaModel criarConta(Long numero){
+        return this.service.addClient(numero);
+    }
+
 }

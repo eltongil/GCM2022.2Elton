@@ -1,28 +1,29 @@
 package br.ufrn.imd.banco.conta;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class ContaRepository {
-    private ArrayList<ContaModel> clientes;
-    private static ContaRepository singleton = new ContaRepository();
+
+    private final ArrayList<ContaModel> clientes;
+
+    private static final ContaRepository singleton = new ContaRepository();
 
     public static ContaRepository getInstance() {
         return singleton;
     }
 
     private ContaRepository() {
-        clientes = new ArrayList<ContaModel>();
+        clientes = new ArrayList<>();
     }
 
-    public void addCliente(ContaModel nova) {
+    public ContaModel addCliente(ContaModel nova) {
         clientes.add(nova);
+        return nova;
     }
 
-    public ArrayList<Long> getNumeros() {
-        ArrayList<Long> listaDeNumeros = new ArrayList<Long>();
-        for (ContaModel conta : clientes) {
-            listaDeNumeros.add(conta.getNumero());
-        }
-        return listaDeNumeros;
+    public boolean verificarNumeroUtilizado(Long numero) {
+        return clientes.stream().anyMatch(conta -> conta.getNumero().equals(numero));
     }
+
 }
