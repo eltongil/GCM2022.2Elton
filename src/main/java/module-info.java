@@ -9,4 +9,8 @@ module br.ufrn.imd.banco {
     exports br.ufrn.imd.banco;
     exports br.ufrn.imd.banco.conta;
     exports br.ufrn.imd.banco.exceptions;
+    exports br.ufrn.imd.banco.View;
+    opens br.ufrn.imd.banco.View to javafx.fxml;
+    exports br.ufrn.imd.banco.View.Interfaces;
+    opens br.ufrn.imd.banco.View.Interfaces to javafx.fxml;
 }
