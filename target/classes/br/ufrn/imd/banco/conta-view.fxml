@@ -48,6 +48,7 @@
                   <TextField fx:id="campoNumeroContaSaldo" GridPane.rowIndex="1" />
                   <Button mnemonicParsing="false" onAction="#verificarSaldo" text="Verificar Saldo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label fx:id="saldoLabel" GridPane.rowIndex="2" />
+                  <Label fx:id="labelErroSaldo" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </children></AnchorPane>

@@ -19,15 +19,35 @@ public class ContaController {
     public Label labelErro;
 
     @FXML
+    public Label saldoLabel;
+
+    @FXML
+    public Label labelErroSaldo;
+
+    @FXML
     public TextField campoNumeroConta;
+
+    @FXML
+    public TextField campoNumeroContaSaldo;
 
     @FXML
     protected void adicionarConta() {
         String numero = campoNumeroConta.getText();
         try {
-            this.service.addConta(numero);
+            this.service.adicionarConta(numero);
         } catch (BadArgumentException e) {
             labelErro.setText(e.getMessage());
+        }
+    }
+
+    @FXML
+    public void verificarSaldo() {
+        String numero = campoNumeroContaSaldo.getText();
+        try {
+            BigDecimal value = this.service.recuperarSaldo(numero);
+            this.saldoLabel.setText(value.toPlainString());
+        } catch (BadArgumentException e) {
+            labelErroSaldo.setText(e.getMessage());
         }
     }
 
