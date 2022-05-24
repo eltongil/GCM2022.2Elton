@@ -4,18 +4,15 @@ import br.ufrn.imd.banco.View.Interfaces.ColunaInterface;
 import javafx.scene.layout.VBox;
 
 public class CriadorLayout implements ColunaInterface {
-    private static VBox Coluna = new VBox();
+    private static VBox Coluna = CriadorLayout.setColuna();
 
-    @Override
-    private void setColuna() {
-        if(Coluna.getChildren().size()==0){
-            Coluna.getChildren().add(EntradaCriador.getInstance());
-
-        }
+    private static VBox setColuna() {
+        VBox alocarColuna = new VBox();
+        alocarColuna.getChildren().add(EntradaCriador.getInstance());
+        alocarColuna.getChildren().add(CriadorBotao.getInstance());
+        alocarColuna.getChildren().add(CriadorLabel.getInstance());
+        return alocarColuna;
     }
 
-    @Override
-    public static VBox getInstance() {
-        return null;
-    }
+    public static VBox getInstance() {return Coluna;}
 }
