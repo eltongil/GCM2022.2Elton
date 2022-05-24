@@ -17,9 +17,13 @@ public class ContaRepository {
         clientes = new ArrayList<>();
     }
 
-    public ContaModel addCliente(ContaModel nova) {
+    public ContaModel salvar(ContaModel nova) {
         clientes.add(nova);
         return nova;
+    }
+
+    public Optional<ContaModel> encontrar(Long numero) {
+        return this.clientes.stream().filter(conta -> conta.getNumero().equals(numero)).findAny();
     }
 
     public boolean verificarNumeroUtilizado(Long numero) {
