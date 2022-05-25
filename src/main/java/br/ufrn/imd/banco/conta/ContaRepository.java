@@ -26,4 +26,5 @@ public class ContaRepository {
         return clientes.stream().anyMatch(conta -> conta.getNumero().equals(numero));
     }
 
+    public ArrayList<ContaModel> getLista(){return clientes;}
 }

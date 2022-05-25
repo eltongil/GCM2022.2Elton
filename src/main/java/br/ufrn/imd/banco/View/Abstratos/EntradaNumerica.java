@@ -1,11 +1,12 @@
-package br.ufrn.imd.banco.View.Interfaces;
+package br.ufrn.imd.banco.View.Abstratos;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
-public interface EntradaNumerica {
-    private static TextField setText(){return null;}
-    public static TextField getInstance(){return null;}
+public abstract class EntradaNumerica {
+    private static TextField entrada = setNumero();
+    private static TextField setNumero(){return null;}
+    public static TextField getInstance(){return entrada;}
     public static void setEntrada(TextField numero){
         numero.textProperty().addListener(new ChangeListener<String>() {
             @Override

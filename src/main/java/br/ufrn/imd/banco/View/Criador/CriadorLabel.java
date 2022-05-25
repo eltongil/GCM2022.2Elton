@@ -1,7 +1,7 @@
 package br.ufrn.imd.banco.View.Criador;
 
 
-import br.ufrn.imd.banco.View.Interfaces.LabelAbstrato;
+import br.ufrn.imd.banco.View.Abstratos.LabelAbstrato;
 import javafx.scene.text.Text;
 
 public class CriadorLabel extends LabelAbstrato {

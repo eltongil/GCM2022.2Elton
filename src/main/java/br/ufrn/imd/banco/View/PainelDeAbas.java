@@ -1,6 +1,7 @@
 package br.ufrn.imd.banco.View;
 
 import br.ufrn.imd.banco.View.Criador.CriadorTab;
+import br.ufrn.imd.banco.View.Saldo.SaldoTab;
 import javafx.scene.control.TabPane;
 
 public class PainelDeAbas {
@@ -10,7 +11,7 @@ public class PainelDeAbas {
         TabPane painel = new TabPane();
         painel.setMinWidth(300);
         painel.getTabs().add(CriadorTab.getInstance());
-
+        painel.getTabs().add(SaldoTab.getInstance());
         return painel;
     }
     public static TabPane getInstance(){

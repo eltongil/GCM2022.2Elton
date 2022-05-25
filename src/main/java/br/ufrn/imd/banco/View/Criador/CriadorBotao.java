@@ -1,6 +1,6 @@
 package br.ufrn.imd.banco.View.Criador;
 
-import br.ufrn.imd.banco.View.Interfaces.BotaoAbstrato;
+import br.ufrn.imd.banco.View.Abstratos.BotaoAbstrato;
 import br.ufrn.imd.banco.View.OuvinteBotao;
 import br.ufrn.imd.banco.conta.ContaService;
 import br.ufrn.imd.banco.exceptions.BadArgumentException;

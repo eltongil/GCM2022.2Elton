@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="GCM2022.2Elton_Francisco" target="11" />
+      <module name="GCM2022.2Elton_Francisco" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>

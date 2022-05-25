@@ -1,6 +1,5 @@
-package br.ufrn.imd.banco.View.Interfaces;
+package br.ufrn.imd.banco.View.Abstratos;
 
-import br.ufrn.imd.banco.View.Criador.CriadorTab;
 import javafx.scene.text.Text;
 
 public abstract class LabelAbstrato {
