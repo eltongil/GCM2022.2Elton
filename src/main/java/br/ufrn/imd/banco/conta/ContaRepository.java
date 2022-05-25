@@ -22,7 +22,12 @@ public class ContaRepository {
     }
 
     public boolean verificarNumeroUtilizado(Long numero) {
-        return clientes.stream().anyMatch(conta -> conta.getNumero().equals(numero));
+        for(ContaModel conta : clientes){
+            if(conta.getNumero().equals(numero)){
+                return true;
+            }
+        }
+        return false;
     }
 
     public ArrayList<ContaModel> getLista(){return clientes;}

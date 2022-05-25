@@ -1,19 +1,11 @@
 package br.ufrn.imd.banco.View;
 
-import br.ufrn.imd.banco.conta.ContaRepository;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 
 public class EscolherConta {
-    private static ComboBox<Long> singleton = setContas();
-    public static ComboBox<Long> getInstance(){return singleton;}
-    private static ComboBox<Long> setContas(){
-        ComboBox<Long> nova = new ComboBox<>();
-        for(Long numero : ContaRepository.getInstance().getNumeros()){
-            nova.getItems().add(numero);
-        }
-        return nova;
+    private TextField conta;
+    public EscolherConta(){
+        conta = new TextField("Numero da conta");
     }
-    public static void atualizar(){
-        singleton = setContas();
-    }
+    public TextField getConta(){return conta;}
 }

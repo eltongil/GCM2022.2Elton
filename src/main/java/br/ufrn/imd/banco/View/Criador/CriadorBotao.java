@@ -1,7 +1,5 @@
 package br.ufrn.imd.banco.View.Criador;
 
-import br.ufrn.imd.banco.View.EscolherConta;
-import br.ufrn.imd.banco.View.OuvinteBotao;
 import br.ufrn.imd.banco.conta.ContaController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,7 +10,7 @@ public class CriadorBotao{
     public static Button getInstance(){return singleton;}
     protected static Button setButton(){
         Button botao = new Button("Criar Conta");
-        OuvinteBotao.setHandlers(botao);
+        //OuvinteBotao.setHandlers(botao);
         botao.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -29,6 +27,5 @@ public class CriadorBotao{
                 EntradaCriador.getInstance().getText()
             )
         );
-        EscolherConta.atualizar();
     }
 }

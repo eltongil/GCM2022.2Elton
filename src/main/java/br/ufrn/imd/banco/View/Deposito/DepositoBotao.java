@@ -15,14 +15,13 @@ public class DepositoBotao {
     public static Button getInstance(){return singleton;}
     private static Button setButton(){
         Button botao = new Button("Depositar Valor.");     
-        OuvinteBotao.setHandlers(botao);   
         botao.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event){
                     try {
                         DepositoText.setTexto(
                             ContaController.deposito(
-                                EscolherConta.getInstance().getValue(),
+                                DepositoLayout.getSelecionada(),
                                 new BigDecimal(
                                     DepositoValor.getInstance().getText()
                                 )
