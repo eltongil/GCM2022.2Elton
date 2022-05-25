@@ -1,14 +1,14 @@
 package br.ufrn.imd.banco.View.Criador;
 
-import br.ufrn.imd.banco.View.Abstratos.BotaoAbstrato;
 import br.ufrn.imd.banco.View.OuvinteBotao;
-import br.ufrn.imd.banco.conta.ContaService;
-import br.ufrn.imd.banco.exceptions.BadArgumentException;
+import br.ufrn.imd.banco.conta.ContaController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
-public class CriadorBotao extends BotaoAbstrato {
+public class CriadorBotao{
+    private static final Button singleton = setButton();
+    public static Button getInstance(){return singleton;}
     protected static Button setButton(){
         Button botao = new Button("Criar Conta");
         OuvinteBotao.setHandlers(botao);
@@ -22,13 +22,11 @@ public class CriadorBotao extends BotaoAbstrato {
     }
 
     private static void CriarConta(){
-        try {
-            ContaService.getInstance().addConta(
-                    EntradaCriador.getInstance().getText()
-            );
-        } catch (BadArgumentException e) {
-            e.printStackTrace();
-            CriadorLabel.setTexto(e.getMessage());
-        }
+        ContaController.getInstance();
+        CriadorText.setTexto(
+            ContaController.adicionarConta(
+                EntradaCriador.getInstance().getText()
+            )
+        );
     }
 }

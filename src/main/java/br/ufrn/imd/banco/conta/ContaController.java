@@ -1,33 +1,21 @@
 package br.ufrn.imd.banco.conta;
 
 import br.ufrn.imd.banco.exceptions.BadArgumentException;
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-
-import java.math.BigDecimal;
 
 public class ContaController {
 
-    private final ContaService service;
+    private static final ContaService service = ContaService.getInstance();
+    private static final ContaController singleton = new ContaController();
 
-    public ContaController() {
-        this.service = ContaService.getInstance();
-    }
+    public static ContaController getInstance(){return singleton;}
 
-    @FXML
-    public Label labelErro;
-
-    @FXML
-    public TextField campoNumeroConta;
-
-    @FXML
-    protected void adicionarConta() {
-        String numero = campoNumeroConta.getText();
+    public static String adicionarConta(String numero) {        
         try {
-            this.service.addConta(numero);
+            service.addConta(numero);
+            return "Conta adicionada.";
         } catch (BadArgumentException e) {
-            labelErro.setText(e.getMessage());
+            e.printStackTrace();
+            return e.getMessage();
         }
     }
 
