@@ -49,7 +49,7 @@ public class ContaService {
         ContaModel conta =  repository.getByNumero(numero);
 
         if(conta != null){
-            return String.format("$ %.2L",conta.getSaldo());
+            return "$ "+ conta.getSaldo().toString();
         }else{
             throw new BadArgumentException("Conta inexistente.");
         }

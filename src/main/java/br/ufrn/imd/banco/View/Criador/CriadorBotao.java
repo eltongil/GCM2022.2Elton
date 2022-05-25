@@ -1,5 +1,6 @@
 package br.ufrn.imd.banco.View.Criador;
 
+import br.ufrn.imd.banco.View.EscolherConta;
 import br.ufrn.imd.banco.View.OuvinteBotao;
 import br.ufrn.imd.banco.conta.ContaController;
 import javafx.event.ActionEvent;
@@ -28,5 +29,6 @@ public class CriadorBotao{
                 EntradaCriador.getInstance().getText()
             )
         );
+        EscolherConta.atualizar();
     }
 }

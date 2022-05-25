@@ -25,7 +25,16 @@ public class ContaModel {
     public void setSaldo(BigDecimal saldo) {
         this.saldo = saldo;
     }
-
+    public boolean saque(BigDecimal valor){
+        if(this.saldo.compareTo(valor)==1){
+            this.saldo = this.saldo.subtract(valor);
+            return true;
+        }
+        return false;
+    }
+    public void deposito(BigDecimal valor){
+        this.saldo = this.saldo.add(valor);
+    }
     @Override
     public String toString() {
         return "[numero=" + numero + "<> saldo=" + saldo + "]";

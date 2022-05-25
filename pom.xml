@@ -72,7 +72,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>br.ufrn.imd.banco/br.ufrn.imd.banco.HelloApplication</mainClass>
+                            <mainClass>br.ufrn.imd.banco/br.ufrn.imd.banco.BancoMain</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

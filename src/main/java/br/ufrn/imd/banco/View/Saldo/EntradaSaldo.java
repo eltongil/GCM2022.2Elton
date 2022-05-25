@@ -5,7 +5,7 @@ import br.ufrn.imd.banco.conta.ContaRepository;
 import javafx.scene.control.ComboBox;
 
 public class EntradaSaldo{
-    private static ComboBox<Long> ComboContas = setCombo();
+    private static ComboBox<Long> singleton = setCombo();
     private static ComboBox<Long> setCombo(){
         ComboBox<Long> comboBox = new ComboBox<Long>();
         for (ContaModel conta : ContaRepository.getInstance().getLista()){
@@ -13,5 +13,5 @@ public class EntradaSaldo{
         }
         return comboBox;
     }
-    public static ComboBox<Long> getInstance(){return ComboContas;}
+    public static ComboBox<Long> getInstance(){return singleton;}
 }

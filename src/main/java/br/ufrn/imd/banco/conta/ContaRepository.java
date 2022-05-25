@@ -2,6 +2,9 @@ package br.ufrn.imd.banco.conta;
 
 import java.util.ArrayList;
 
+import br.ufrn.imd.banco.View.Saldo.EntradaSaldo;
+import br.ufrn.imd.banco.exceptions.BadArgumentException;
+
 public class ContaRepository {
 
     private final ArrayList<ContaModel> clientes =new ArrayList<>();
@@ -14,6 +17,7 @@ public class ContaRepository {
 
     public ContaModel addCliente(ContaModel nova) {
         clientes.add(nova);
+        EntradaSaldo.getInstance().getItems().add(nova.getNumero());
         return nova;
     }
 
@@ -31,12 +35,12 @@ public class ContaRepository {
         return lista;
     }
     
-    public ContaModel getByNumero(Long numero){
+    public ContaModel getByNumero(Long numero) throws BadArgumentException{
         for(ContaModel conta : clientes){
             if (conta.getNumero().equals(numero)){
                 return conta;
             }
         }
-        return null;
+        throw new BadArgumentException("Numero não cadastrado");
     }
 }
