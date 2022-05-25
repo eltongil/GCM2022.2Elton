@@ -2,8 +2,6 @@ package br.ufrn.imd.banco.View.Deposito;
 
 import java.math.BigDecimal;
 
-import br.ufrn.imd.banco.View.EscolherConta;
-import br.ufrn.imd.banco.View.OuvinteBotao;
 import br.ufrn.imd.banco.conta.ContaController;
 import br.ufrn.imd.banco.exceptions.BadArgumentException;
 import javafx.event.ActionEvent;

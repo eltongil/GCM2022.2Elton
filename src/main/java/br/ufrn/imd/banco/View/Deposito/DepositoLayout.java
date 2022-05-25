@@ -6,10 +6,11 @@ import javafx.scene.layout.VBox;
 public class DepositoLayout {
     private static VBox singleton = setColuna();
     public static VBox getInstance(){return singleton;}
-    private static EscolherConta contaSelecionada = new EscolherConta();
+    private static EscolherConta seletor;
     private static VBox setColuna(){
         VBox nova = new VBox();
-        nova.getChildren().add(contaSelecionada.getConta());
+        seletor = new EscolherConta();
+        nova.getChildren().add(seletor.getConta());
         nova.getChildren().add(DepositoValor.getInstance());
         nova.getChildren().add(DepositoBotao.getInstance());
         nova.getChildren().add(DepositoText.getInstance());
@@ -17,7 +18,7 @@ public class DepositoLayout {
     }
     public static Long getSelecionada(){
         return  Long.parseLong(
-                    contaSelecionada.getConta().getText()
+                    seletor.getConta().getText()
                 );
     }
 }

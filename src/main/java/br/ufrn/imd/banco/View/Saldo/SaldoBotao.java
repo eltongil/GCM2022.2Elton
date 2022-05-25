@@ -17,7 +17,7 @@ public class SaldoBotao{
                 try {
                     SaldoText.setTexto(
                         ContaService.getInstance().consultarSaldo(
-                            EntradaSaldo.getInstance().getValue()
+                            SaldoLayout.getConta()
                         )
                     );
                 } catch (BadArgumentException e) {

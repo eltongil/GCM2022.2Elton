@@ -2,7 +2,6 @@ package br.ufrn.imd.banco.conta;
 
 import java.util.ArrayList;
 
-import br.ufrn.imd.banco.View.Saldo.EntradaSaldo;
 import br.ufrn.imd.banco.exceptions.BadArgumentException;
 
 public class ContaRepository {
@@ -17,7 +16,6 @@ public class ContaRepository {
 
     public ContaModel addCliente(ContaModel nova) {
         clientes.add(nova);
-        EntradaSaldo.getInstance().getItems().add(nova.getNumero());
         return nova;
     }
 
