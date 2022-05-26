@@ -16,7 +16,6 @@ public class ContaService {
     }
 
     public void addConta(String numero) throws BadArgumentException {
-
         this.verificarStringVazia(numero);
         this.verificarStringNumero(numero);
         long numeroConta = Long.parseLong(numero);
@@ -31,7 +30,7 @@ public class ContaService {
         try {
             Long.valueOf(numero);
         } catch (NumberFormatException ex) {
-           throw new BadArgumentException("O numero da conta não pode conter letras ou caracteres especiais");
+            throw new BadArgumentException("O numero da conta não pode conter letras ou caracteres especiais");
         }
     }
 
@@ -44,4 +43,15 @@ public class ContaService {
         return !repository.verificarNumeroUtilizado(numero);
     }
 
+    public String consultarSaldo(Long numero) throws BadArgumentException{
+        this.verificarStringVazia(numero.toString());
+        this.verificarStringNumero(numero.toString());
+        ContaModel conta =  repository.getByNumero(numero);
+
+        if(conta != null){
+            return "$ "+ conta.getSaldo().toString();
+        }else{
+            throw new BadArgumentException("Conta inexistente.");
+        }
+    }
 }

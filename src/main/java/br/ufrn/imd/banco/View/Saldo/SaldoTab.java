@@ -1,9 +1,10 @@
 package br.ufrn.imd.banco.View.Saldo;
 
-import br.ufrn.imd.banco.View.Abstratos.TabAbstrata;
 import javafx.scene.control.Tab;
 
-public class SaldoTab extends TabAbstrata {
+public class SaldoTab{
+    private static Tab singleton = setTab();
+    public static Tab getInstance() {return singleton;}
     protected static Tab setTab(){
         Tab Saldo = new Tab();
         Saldo.setContent(SaldoLayout.getInstance());
