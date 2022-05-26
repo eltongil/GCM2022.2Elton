@@ -15,7 +15,6 @@ public class AbaSaque extends Aba {
         botao.setOnAction(new javafx.event.EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                ContaController.getInstance();
                 texto.setText(
                         ContaController.saque(
                                 getNumero(),
