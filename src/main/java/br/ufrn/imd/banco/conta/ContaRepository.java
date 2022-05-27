@@ -1,11 +1,12 @@
 package br.ufrn.imd.banco.conta;
 
 import java.util.ArrayList;
-import java.util.Optional;
+
+import br.ufrn.imd.banco.exceptions.BadArgumentException;
 
 public class ContaRepository {
 
-    private final ArrayList<ContaModel> clientes;
+    private final ArrayList<ContaModel> clientes =new ArrayList<>();
 
     private static final ContaRepository singleton = new ContaRepository();
 
@@ -13,21 +14,36 @@ public class ContaRepository {
         return singleton;
     }
 
-    private ContaRepository() {
-        clientes = new ArrayList<>();
-    }
-
-    public ContaModel salvar(ContaModel nova) {
+    public ContaModel addCliente(ContaModel nova) {
         clientes.add(nova);
         return nova;
     }
 
-    public Optional<ContaModel> encontrar(Long numero) {
-        return this.clientes.stream().filter(conta -> conta.getNumero().equals(numero)).findAny();
-    }
-
     public boolean verificarNumeroUtilizado(Long numero) {
-        return clientes.stream().anyMatch(conta -> conta.getNumero().equals(numero));
+        for(ContaModel conta : clientes){
+            if(conta.getNumero().equals(numero)){
+                return true;
+            }
+        }
+        return false;
     }
 
+    public ArrayList<ContaModel> getLista(){return clientes;}
+
+    public ArrayList<Long> getNumeros(){
+        ArrayList<Long> lista = new ArrayList<>();
+        for (ContaModel conta : clientes){
+            lista.add(conta.getNumero());
+        }
+        return lista;
+    }
+    
+    public ContaModel getByNumero(Long numero) throws BadArgumentException{
+        for(ContaModel conta : clientes){
+            if (conta.getNumero().equals(numero)){
+                return conta;
+            }
+        }
+        throw new BadArgumentException("Numero não cadastrado");
+    }
 }
