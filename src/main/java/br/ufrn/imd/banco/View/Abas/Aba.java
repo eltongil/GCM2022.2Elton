@@ -21,12 +21,14 @@ public abstract class Aba {
         estaAba = new Tab(Nome);
         coluna = new VBox();
 
-        conta = new TextField("Número da conta");
+        conta = new TextField();
+        conta.setPromptText("Número da conta");
         EntradaNumerica.setEntrada(conta);
         coluna.getChildren().add(conta);
 
         if (temValor) {
-            valor = new TextField("Valor financeiro");
+            valor = new TextField();
+            valor.setPromptText("Valor financeiro");
             EntradaNumerica.setEntrada(valor);
             coluna.getChildren().addAll(valor);
         }

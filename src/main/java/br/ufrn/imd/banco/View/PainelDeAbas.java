@@ -1,9 +1,6 @@
 package br.ufrn.imd.banco.View;
 
-import br.ufrn.imd.banco.View.Abas.AbaCriador;
-import br.ufrn.imd.banco.View.Abas.AbaDeposito;
-import br.ufrn.imd.banco.View.Abas.AbaSaldo;
-import br.ufrn.imd.banco.View.Abas.AbaSaque;
+import br.ufrn.imd.banco.View.Abas.*;
 import javafx.scene.control.TabPane;
 
 public class PainelDeAbas {
@@ -16,6 +13,7 @@ public class PainelDeAbas {
         painel.getTabs().add((new AbaSaldo()).getAba());
         painel.getTabs().add((new AbaDeposito()).getAba());
         painel.getTabs().add((new AbaSaque()).getAba());
+        painel.getTabs().add((new AbaTransferencia().getAba()));
         return painel;
     }
 

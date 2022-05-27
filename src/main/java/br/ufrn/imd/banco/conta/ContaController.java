@@ -45,4 +45,13 @@ public class ContaController {
             return e.getMessage();
         }
     }
+
+    public static String transferencia(Long numeroOrigem, Long numeroDestino, BigDecimal valor){
+        try {
+            return service.transferencia(numeroOrigem, numeroDestino, valor);
+        } catch (BadArgumentException e) {
+            return e.getMessage();
+        }
+    }
+
 }

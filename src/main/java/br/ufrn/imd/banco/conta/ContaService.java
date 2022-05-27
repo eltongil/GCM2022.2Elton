@@ -2,6 +2,8 @@ package br.ufrn.imd.banco.conta;
 
 import br.ufrn.imd.banco.exceptions.BadArgumentException;
 
+import java.math.BigDecimal;
+
 public class ContaService {
 
     private final ContaRepository repository;
@@ -53,5 +55,25 @@ public class ContaService {
         }else{
             throw new BadArgumentException("Conta inexistente.");
         }
+    }
+
+    public String transferencia(Long numeroOrigem, Long numeroDestino, BigDecimal valor) throws BadArgumentException {
+
+        if (!this.repository.verificarNumeroUtilizado(numeroOrigem))
+            throw new BadArgumentException("Conta do número de origem não existe");
+
+        if (!this.repository.verificarNumeroUtilizado(numeroDestino))
+            throw new BadArgumentException("Conta do número de destino não existe");
+
+        ContaModel contaOrigem = this.repository.getByNumero(numeroOrigem);
+
+        if (contaOrigem.getSaldo().compareTo(valor) < 0)
+            throw new BadArgumentException("Não existe saldo suficiente para realizar essa transferência");
+
+        contaOrigem.setSaldo(contaOrigem.getSaldo().subtract(valor));
+        ContaModel contaDestino = this.repository.getByNumero(numeroDestino);
+        contaDestino.setSaldo(contaDestino.getSaldo().add(valor));
+
+        return "Transferência realizada com sucesso";
     }
 }
