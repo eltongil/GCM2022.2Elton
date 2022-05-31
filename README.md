@@ -10,6 +10,6 @@ Programa voltado a construção de um programa de banco simplificado para treina
 * Nomenclatura de branch de feature:
 
 
-    feat-xx-nome-da-funcionalidades
+    feat-xx-nome-da-funcionalidade
 
 * Realizar squashing ao fazer merge para developer indicando a função realizada no commit.
