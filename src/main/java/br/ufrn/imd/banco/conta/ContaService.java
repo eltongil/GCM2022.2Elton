@@ -1,6 +1,7 @@
 package br.ufrn.imd.banco.conta;
 
 import br.ufrn.imd.banco.exceptions.BadArgumentException;
+import br.ufrn.imd.banco.exceptions.ExceptionHandler;
 
 import java.math.BigDecimal;
 
@@ -8,6 +9,7 @@ public class ContaService {
 
     private final ContaRepository repository;
     private static final ContaService singleton = new ContaService();
+    private final ExceptionHandler exceptionHandler = new ExceptionHandler();
 
     private ContaService() {
         this.repository = ContaRepository.getInstance();
@@ -18,9 +20,9 @@ public class ContaService {
     }
 
     public String addConta(String numero, String tipo) throws BadArgumentException {
-        this.verificarStringVazia(numero);
-        this.verificarStringNumero(numero);
-        this.verificarSeExisteConta(numero);
+        exceptionHandler.verificarStringVazia(numero);
+        exceptionHandler.verificarStringNumero(numero);
+        exceptionHandler.verificarSeExisteConta(numero);
 
         long conta = Long.parseLong(numero);
         String resp = "";
@@ -39,7 +41,8 @@ public class ContaService {
 
     public String deposito(Long numero, BigDecimal valor) throws BadArgumentException {
 
-        this.verificarSeNaoExisteConta(numero);
+        exceptionHandler.verificarSeNaoExisteConta(numero);
+        exceptionHandler.verificarValorPositivo(valor);
         ContaModel conta = this.repository.getByNumero(numero);
 
         if (conta instanceof ContaBonusModel) {
@@ -54,40 +57,17 @@ public class ContaService {
     }
 
     public String saque(Long numero, BigDecimal valor) throws BadArgumentException {
-        verificarSeNaoExisteConta(numero);
+        exceptionHandler.verificarSeNaoExisteConta(numero);
         ContaModel conta = this.repository.getByNumero(numero);
-        verificarSaldoSuficiente(conta, valor);
+        exceptionHandler.verificarValorPositivo(valor);
+        exceptionHandler.verificarSaldoSuficiente(conta, valor);
         conta.saque(valor);
         return numero.toString();
     }
 
-    private void verificarSeExisteConta(String numero) throws BadArgumentException {
-        long numeroConta = Long.parseLong(numero);
-        if (this.repository.verificarSeContaExiste(numeroConta))
-            throw new BadArgumentException("Já existe conta com esse número");
-    }
-
-    private void verificarSeNaoExisteConta(Long numero) throws BadArgumentException {
-        if (!this.repository.verificarSeContaExiste(numero))
-            throw new BadArgumentException("Não existe conta com esse número");
-    }
-
-    private void verificarStringNumero(String numero) throws BadArgumentException {
-        try {
-            Long.valueOf(numero);
-        } catch (NumberFormatException ex) {
-            throw new BadArgumentException("O numero da conta não pode conter letras ou caracteres especiais");
-        }
-    }
-
-    private void verificarStringVazia(String numero) throws BadArgumentException {
-        if (numero.isBlank())
-            throw new BadArgumentException("O numero de conta informado é vazio");
-    }
-
     public String consultarSaldo(Long numero) throws BadArgumentException {
-        this.verificarStringVazia(numero.toString());
-        this.verificarStringNumero(numero.toString());
+        exceptionHandler.verificarStringVazia(numero.toString());
+        exceptionHandler.verificarStringNumero(numero.toString());
         ContaModel conta = repository.getByNumero(numero);
 
         if (conta != null) {
@@ -105,8 +85,9 @@ public class ContaService {
         if (!this.repository.verificarSeContaExiste(numeroDestino))
             throw new BadArgumentException("Conta do número de destino não existe");
 
+        exceptionHandler.verificarValorPositivo(valor);
         ContaModel contaOrigem = this.repository.getByNumero(numeroOrigem);
-        verificarSaldoSuficiente(contaOrigem, valor);
+        exceptionHandler.verificarSaldoSuficiente(contaOrigem, valor);
         contaOrigem.saque(valor);
 
         ContaModel contaDestino = this.repository.getByNumero(numeroDestino);
@@ -120,8 +101,4 @@ public class ContaService {
         return "Transferência realizada com sucesso";
     }
 
-    private void verificarSaldoSuficiente(ContaModel conta, BigDecimal valor) throws BadArgumentException {
-        if (conta.getSaldo().compareTo(valor) == -1)
-            throw new BadArgumentException("Saldo insuficiente");
-    }
 }
