@@ -17,16 +17,53 @@ public class ContaService {
         return singleton;
     }
 
-    public void addConta(String numero) throws BadArgumentException {
+    public String addConta(String numero, String tipo) throws BadArgumentException {
         this.verificarStringVazia(numero);
         this.verificarStringNumero(numero);
-        long numeroConta = Long.parseLong(numero);
+        this.verificarSeExisteConta(numero);
 
-        if (this.verificarNumeroDisponivel(numeroConta))
-            repository.addCliente(new ContaModel(numeroConta));
-        else
+        long conta = Long.parseLong(numero);
+        String resp = "";
+        switch (tipo){
+            case "Bonus":
+                repository.addCliente(new ContaBonusModel(conta));
+                resp = "Conta Bônus Criada";
+                break;
+            default:
+                repository.addCliente(new ContaModel(conta));
+                resp = "Conta Padrão Criada";
+                break;
+        }
+        return resp;
+    }
+
+    public String deposito(Long numero, BigDecimal valor) throws BadArgumentException {
+
+        this.verificarSeNaoExisteConta(numero);
+        ContaModel conta = this.repository.getByNumero(numero);
+
+        if (conta instanceof ContaBonusModel) {
+            long bonus = Math.floorDiv(valor.longValue(), 100l);
+            ((ContaBonusModel) conta).addBonus(bonus);
+        }
+
+        conta.setSaldo(conta.getSaldo().add(valor));
+
+        String resp = conta.getNumero().toString();
+        return resp;
+    }
+
+    private void verificarSeExisteConta(String numero) throws BadArgumentException {
+        long numeroConta = Long.parseLong(numero);
+        if (this.repository.verificarSeContaExiste(numeroConta))
             throw new BadArgumentException("Já existe conta com esse número");
     }
+
+    private void verificarSeNaoExisteConta(Long numero) throws BadArgumentException {
+        if (!this.repository.verificarSeContaExiste(numero))
+            throw new BadArgumentException("Não existe conta com esse número");
+    }
+
 
     private void verificarStringNumero(String numero) throws BadArgumentException {
         try {
@@ -40,11 +77,6 @@ public class ContaService {
         if (numero.isBlank())
             throw new BadArgumentException("O numero de conta informado é vazio");
     }
-
-    public Boolean verificarNumeroDisponivel(Long numero) {
-        return !repository.verificarNumeroUtilizado(numero);
-    }
-
     public String consultarSaldo(Long numero) throws BadArgumentException{
         this.verificarStringVazia(numero.toString());
         this.verificarStringNumero(numero.toString());
@@ -59,21 +91,24 @@ public class ContaService {
 
     public String transferencia(Long numeroOrigem, Long numeroDestino, BigDecimal valor) throws BadArgumentException {
 
-        if (!this.repository.verificarNumeroUtilizado(numeroOrigem))
+        if (!this.repository.verificarSeContaExiste(numeroOrigem))
             throw new BadArgumentException("Conta do número de origem não existe");
 
-        if (!this.repository.verificarNumeroUtilizado(numeroDestino))
+        if (!this.repository.verificarSeContaExiste(numeroDestino))
             throw new BadArgumentException("Conta do número de destino não existe");
 
         ContaModel contaOrigem = this.repository.getByNumero(numeroOrigem);
 
-        if (contaOrigem.getSaldo().compareTo(valor) < 0)
-            throw new BadArgumentException("Não existe saldo suficiente para realizar essa transferência");
-
         contaOrigem.setSaldo(contaOrigem.getSaldo().subtract(valor));
         ContaModel contaDestino = this.repository.getByNumero(numeroDestino);
+        if (contaDestino instanceof ContaBonusModel) {
+            long bonus = Math.floorDiv(valor.longValue(), 200l);
+            ((ContaBonusModel) contaDestino).addBonus(bonus);
+        }
+
         contaDestino.setSaldo(contaDestino.getSaldo().add(valor));
 
         return "Transferência realizada com sucesso";
     }
+
 }

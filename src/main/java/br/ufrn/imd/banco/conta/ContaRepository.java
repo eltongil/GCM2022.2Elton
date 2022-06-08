@@ -19,7 +19,7 @@ public class ContaRepository {
         return nova;
     }
 
-    public boolean verificarNumeroUtilizado(Long numero) {
+    public boolean verificarSeContaExiste(Long numero) {
         for(ContaModel conta : clientes){
             if(conta.getNumero().equals(numero)){
                 return true;

@@ -13,10 +13,10 @@ public class ContaController {
         return singleton;
     }
 
-    public static String adicionarConta(String numero) {
+    public static String adicionarConta(String numero, String tipo) {
         try {
-            service.addConta(numero);
-            return "Conta adicionada.";
+            String resp = service.addConta(numero, tipo);
+            return resp;
         } catch (BadArgumentException e) {
             e.printStackTrace();
             return e.getMessage();
@@ -25,8 +25,8 @@ public class ContaController {
 
     public static String deposito(Long numero, BigDecimal valor) throws BadArgumentException {
         try {
-            ContaRepository.getInstance().getByNumero(numero).deposito(valor);
-            return "Saldo da conta " + numero + " atualizado";
+            String resp = service.deposito(numero, valor);
+            return "Saldo da conta " + resp + " atualizado";
         } catch (BadArgumentException e) {
             e.printStackTrace();
             return e.getMessage();

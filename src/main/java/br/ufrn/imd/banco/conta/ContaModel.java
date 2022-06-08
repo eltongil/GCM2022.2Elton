@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 
 public class ContaModel {
 
-    private Long numero;
-    private BigDecimal saldo;
+    protected Long numero;
+    protected BigDecimal saldo;
 
     public ContaModel(long numero) {
         this.numero = numero;
