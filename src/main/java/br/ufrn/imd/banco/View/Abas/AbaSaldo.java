@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
 public class AbaSaldo extends Aba {
 
     public AbaSaldo() {
-        super("Consultar", "Saldo disponível", "Saldo", false);
+        super("Consultar", "Saldo disponível", "Saldo", false, false);
     }
 
     @Override

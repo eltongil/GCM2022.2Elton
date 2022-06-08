@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
 public class AbaDeposito extends Aba {
 
     public AbaDeposito() {
-        super("Depositar", "Fazer depositos em conta", "Deposito", true);
+        super("Depositar", "Fazer depositos em conta", "Deposito", true, false);
     }
 
     @Override

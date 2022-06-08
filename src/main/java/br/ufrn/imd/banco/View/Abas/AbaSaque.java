@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 public class AbaSaque extends Aba {
 
     public AbaSaque() {
-        super("Efetuar Saque", "Saque da conta", "Saque", true);
+        super("Efetuar Saque", "Saque da conta", "Saque", true, false);
     }
 
     @Override
