@@ -14,6 +14,7 @@ public class PainelDeAbas {
         painel.getTabs().add((new AbaDeposito()).getAba());
         painel.getTabs().add((new AbaSaque()).getAba());
         painel.getTabs().add((new AbaTransferencia().getAba()));
+        painel.getTabs().add((new AbaJuros()).getAba());
         return painel;
     }
 

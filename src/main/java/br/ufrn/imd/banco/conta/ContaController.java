@@ -54,4 +54,14 @@ public class ContaController {
         }
     }
 
+    public String renderJuros(String numero, String valor) {
+
+        try {
+            String resp = service.renderJuros(numero, valor);
+            return resp;
+        } catch (BadArgumentException e) {
+            e.printStackTrace();
+            return e.getMessage();
+        }
+    }
 }

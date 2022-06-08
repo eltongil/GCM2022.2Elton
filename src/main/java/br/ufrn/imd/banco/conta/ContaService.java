@@ -29,6 +29,10 @@ public class ContaService {
                 repository.addCliente(new ContaBonusModel(conta));
                 resp = "Conta Bônus Criada";
                 break;
+            case "Poupança":
+                repository.addCliente(new ContaPoupancaModel(conta));
+                resp = "Conta Poupança criada";
+                break;
             default:
                 repository.addCliente(new ContaModel(conta));
                 resp = "Conta Padrão Criada";
@@ -73,6 +77,14 @@ public class ContaService {
         }
     }
 
+    private void verificarStringDouble(String numero) throws BadArgumentException {
+        try {
+            Double.valueOf(numero);
+        } catch (NumberFormatException ex) {
+            throw new BadArgumentException("O valor deve ser um número");
+        }
+    }
+
     private void verificarStringVazia(String numero) throws BadArgumentException {
         if (numero.isBlank())
             throw new BadArgumentException("O numero de conta informado é vazio");
@@ -111,4 +123,22 @@ public class ContaService {
         return "Transferência realizada com sucesso";
     }
 
+    public String renderJuros(String numero, String valor) throws BadArgumentException {
+        this.verificarStringVazia(numero);
+        this.verificarStringNumero(numero);
+        this.verificarStringVazia(valor);
+        this.verificarStringDouble(valor);
+
+        long contaNumero = Long.parseLong(numero);
+        this.verificarSeNaoExisteConta(contaNumero);
+
+        ContaModel conta = this.repository.getByNumero(contaNumero);
+        if (conta instanceof ContaPoupancaModel)
+            ((ContaPoupancaModel) conta).renderJuros(new BigDecimal(valor));
+        else
+            throw new BadArgumentException("Somente contas de poupança podem ter rendimentos");
+
+        String resp = "Juros rendidos com sucesso";
+        return resp;
+    }
 }

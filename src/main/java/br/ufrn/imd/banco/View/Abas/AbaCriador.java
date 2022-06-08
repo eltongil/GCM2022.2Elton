@@ -16,6 +16,7 @@ public class AbaCriador extends Aba {
 
     private RadioButton padraoRadioButton;
     private RadioButton bonusRadioButton;
+    private RadioButton poupancaRadioButton;
 
     public AbaCriador() {
         super("Criar", "Criação de contas", "Nova Conta", false);
@@ -25,15 +26,16 @@ public class AbaCriador extends Aba {
 
         bonusRadioButton = new RadioButton("Bonus");
         padraoRadioButton = new RadioButton("Padrão");
+        poupancaRadioButton = new RadioButton("Poupança");
         padraoRadioButton.setSelected(true);
 
         this.group = new ToggleGroup();
         padraoRadioButton.setToggleGroup(group);
         bonusRadioButton.setToggleGroup(group);
+        poupancaRadioButton.setToggleGroup(group);
 
-        coluna.getChildren().addAll(padraoRadioButton, bonusRadioButton);
+        coluna.getChildren().addAll(padraoRadioButton, bonusRadioButton, poupancaRadioButton);
         coluna.getChildren().addAll(botao, texto);
-
     }
 
     @Override
