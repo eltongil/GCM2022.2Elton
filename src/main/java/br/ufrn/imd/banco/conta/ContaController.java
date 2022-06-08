@@ -1,6 +1,7 @@
 package br.ufrn.imd.banco.conta;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 import br.ufrn.imd.banco.exceptions.BadArgumentException;
 
@@ -35,23 +36,19 @@ public class ContaController {
 
     public static String saque(Long numero, BigDecimal valor) {
         try {
-            if (ContaRepository.getInstance().getByNumero(numero).saque(valor)) {
-                return "Saque efetuado.";
-            } else {
-                return "Saldo insuficiente";
-            }
+            String resp = service.saque(numero, valor);
+            return "Saque da conta" + resp + " realizado";
         } catch (BadArgumentException e) {
             e.printStackTrace();
             return e.getMessage();
         }
     }
 
-    public static String transferencia(Long numeroOrigem, Long numeroDestino, BigDecimal valor){
+    public static String transferencia(Long numeroOrigem, Long numeroDestino, BigDecimal valor) {
         try {
             return service.transferencia(numeroOrigem, numeroDestino, valor);
         } catch (BadArgumentException e) {
             return e.getMessage();
         }
     }
-
 }

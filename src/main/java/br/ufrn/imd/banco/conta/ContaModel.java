@@ -15,6 +15,7 @@ public class ContaModel {
     public Long getNumero() {
         return numero;
     }
+
     public void setNumero(Long numero) {
         this.numero = numero;
     }
@@ -22,19 +23,19 @@ public class ContaModel {
     public BigDecimal getSaldo() {
         return saldo;
     }
+
     public void setSaldo(BigDecimal saldo) {
         this.saldo = saldo;
     }
-    public boolean saque(BigDecimal valor){
-        if(this.saldo.compareTo(valor)==1){
-            this.saldo = this.saldo.subtract(valor);
-            return true;
-        }
-        return false;
+
+    public void saque(BigDecimal valor) {
+        this.saldo = this.saldo.subtract(valor);
     }
-    public void deposito(BigDecimal valor){
+
+    public void deposito(BigDecimal valor) {
         this.saldo = this.saldo.add(valor);
     }
+
     @Override
     public String toString() {
         return "[numero=" + numero + "<> saldo=" + saldo + "]";

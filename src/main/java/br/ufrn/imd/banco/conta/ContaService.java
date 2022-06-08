@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 public class ContaService {
 
     private final ContaRepository repository;
-    private static final ContaService singleton =  new ContaService();
+    private static final ContaService singleton = new ContaService();
 
     private ContaService() {
         this.repository = ContaRepository.getInstance();
@@ -24,7 +24,7 @@ public class ContaService {
 
         long conta = Long.parseLong(numero);
         String resp = "";
-        switch (tipo){
+        switch (tipo) {
             case "Bonus":
                 repository.addCliente(new ContaBonusModel(conta));
                 resp = "Conta Bônus Criada";
@@ -53,6 +53,14 @@ public class ContaService {
         return resp;
     }
 
+    public String saque(Long numero, BigDecimal valor) throws BadArgumentException {
+        verificarSeNaoExisteConta(numero);
+        ContaModel conta = this.repository.getByNumero(numero);
+        verificarSaldoSuficiente(conta, valor);
+        conta.saque(valor);
+        return numero.toString();
+    }
+
     private void verificarSeExisteConta(String numero) throws BadArgumentException {
         long numeroConta = Long.parseLong(numero);
         if (this.repository.verificarSeContaExiste(numeroConta))
@@ -63,7 +71,6 @@ public class ContaService {
         if (!this.repository.verificarSeContaExiste(numero))
             throw new BadArgumentException("Não existe conta com esse número");
     }
-
 
     private void verificarStringNumero(String numero) throws BadArgumentException {
         try {
@@ -77,14 +84,15 @@ public class ContaService {
         if (numero.isBlank())
             throw new BadArgumentException("O numero de conta informado é vazio");
     }
-    public String consultarSaldo(Long numero) throws BadArgumentException{
+
+    public String consultarSaldo(Long numero) throws BadArgumentException {
         this.verificarStringVazia(numero.toString());
         this.verificarStringNumero(numero.toString());
-        ContaModel conta =  repository.getByNumero(numero);
+        ContaModel conta = repository.getByNumero(numero);
 
-        if(conta != null){
-            return "$ "+ conta.getSaldo().toString();
-        }else{
+        if (conta != null) {
+            return "$ " + conta.getSaldo().toString();
+        } else {
             throw new BadArgumentException("Conta inexistente.");
         }
     }
@@ -98,8 +106,9 @@ public class ContaService {
             throw new BadArgumentException("Conta do número de destino não existe");
 
         ContaModel contaOrigem = this.repository.getByNumero(numeroOrigem);
+        verificarSaldoSuficiente(contaOrigem, valor);
+        contaOrigem.saque(valor);
 
-        contaOrigem.setSaldo(contaOrigem.getSaldo().subtract(valor));
         ContaModel contaDestino = this.repository.getByNumero(numeroDestino);
         if (contaDestino instanceof ContaBonusModel) {
             long bonus = Math.floorDiv(valor.longValue(), 200l);
@@ -111,4 +120,8 @@ public class ContaService {
         return "Transferência realizada com sucesso";
     }
 
+    private void verificarSaldoSuficiente(ContaModel conta, BigDecimal valor) throws BadArgumentException {
+        if (conta.getSaldo().compareTo(valor) == -1)
+            throw new BadArgumentException("Saldo insuficiente");
+    }
 }
