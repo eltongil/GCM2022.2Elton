@@ -5,3 +5,11 @@ Trabalho em Dupla dos alunos Elton Gil Xavier Moura, matrícula  20190051713 e F
 
 Programa voltado a construção de um programa de banco simplificado para treinamento e avaliação de comandos Git e observação do fluxo de trabalho Git Flow.
 
+# Práticas Para Futuras Alterações
+
+* Nomenclatura de branch de feature:
+
+
+    feat-xx-nome-da-funcionalidade
+
+* Realizar squashing ao fazer merge para developer indicando a função realizada no commit.
