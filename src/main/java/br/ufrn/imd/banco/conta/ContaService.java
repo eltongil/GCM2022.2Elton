@@ -94,4 +94,18 @@ public class ContaService {
             return "Saque realizado com sucesso";
         }
     }
+
+    public String deposito(Long numero, BigDecimal valor) throws BadArgumentException {
+
+        if (valor.compareTo(BigDecimal.ZERO) < 0)
+            throw new BadArgumentException("Não é possível depositar valores negativos");
+
+        if ( this.verificarNumeroDisponivel(numero) )
+            throw new BadArgumentException("Não existe Conta com esse número");
+
+        ContaModel conta = this.repository.getByNumero(numero);
+        conta.setSaldo(conta.getSaldo().add(valor));
+
+        return "Depósito realizado com sucesso";
+    }
 }

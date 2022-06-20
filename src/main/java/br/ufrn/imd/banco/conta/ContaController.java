@@ -25,8 +25,7 @@ public class ContaController {
 
     public static String deposito(Long numero, BigDecimal valor) throws BadArgumentException {
         try {
-            ContaRepository.getInstance().getByNumero(numero).deposito(valor);
-            return "Saldo da conta " + numero + " atualizado";
+            return service.deposito(numero, valor);
         } catch (BadArgumentException e) {
             e.printStackTrace();
             return e.getMessage();
