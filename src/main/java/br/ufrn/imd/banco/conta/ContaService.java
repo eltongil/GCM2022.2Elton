@@ -23,7 +23,7 @@ public class ContaService {
         this.verificarSeExisteConta(numero);
 
         long conta = Long.parseLong(numero);
-        String resp = "";
+        String resp;
         switch (tipo){
             case "Bonus":
                 repository.addCliente(new ContaBonusModel(conta));
@@ -38,22 +38,6 @@ public class ContaService {
                 resp = "Conta Padrão Criada";
                 break;
         }
-        return resp;
-    }
-
-    public String deposito(Long numero, BigDecimal valor) throws BadArgumentException {
-
-        this.verificarSeNaoExisteConta(numero);
-        ContaModel conta = this.repository.getByNumero(numero);
-
-        if (conta instanceof ContaBonusModel) {
-            long bonus = Math.floorDiv(valor.longValue(), 100l);
-            ((ContaBonusModel) conta).addBonus(bonus);
-        }
-
-        conta.setSaldo(conta.getSaldo().add(valor));
-
-        String resp = conta.getNumero().toString();
         return resp;
     }
 
@@ -114,7 +98,7 @@ public class ContaService {
         contaOrigem.setSaldo(contaOrigem.getSaldo().subtract(valor));
         ContaModel contaDestino = this.repository.getByNumero(numeroDestino);
         if (contaDestino instanceof ContaBonusModel) {
-            long bonus = Math.floorDiv(valor.longValue(), 200l);
+            long bonus = Math.floorDiv(valor.longValue(), 200L);
             ((ContaBonusModel) contaDestino).addBonus(bonus);
         }
 
@@ -138,7 +122,38 @@ public class ContaService {
         else
             throw new BadArgumentException("Somente contas de poupança podem ter rendimentos");
 
-        String resp = "Juros rendidos com sucesso";
-        return resp;
+        return "Juros rendidos com sucesso";
     }
+
+    public String saque(Long numero, BigDecimal valor) throws BadArgumentException {
+
+        this.verificarSeNaoExisteConta(numero);
+
+        if (valor.compareTo(BigDecimal.ZERO) < 0)
+            throw new BadArgumentException("Não é possível sacar valores negativos");
+
+        ContaModel conta = this.repository.getByNumero(numero);
+
+        if (conta.getSaldo().compareTo(valor) < 0)
+            throw new BadArgumentException("O valor do saque deve ser menor que o saldo da conta");
+        else {
+            conta.setSaldo(conta.getSaldo().subtract(valor));
+            return "Saque realizado com sucesso";
+        }
+    }
+
+    public String deposito(Long numero, BigDecimal valor) throws BadArgumentException {
+
+        if (valor.compareTo(BigDecimal.ZERO) < 0)
+            throw new BadArgumentException("Não é possível depositar valores negativos");
+
+        this.verificarSeNaoExisteConta(numero);
+
+
+        ContaModel conta = this.repository.getByNumero(numero);
+        conta.setSaldo(conta.getSaldo().add(valor));
+
+        return "Depósito realizado com sucesso";
+    }
+
 }

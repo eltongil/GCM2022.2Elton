@@ -25,8 +25,7 @@ public class ContaController {
 
     public static String deposito(Long numero, BigDecimal valor) throws BadArgumentException {
         try {
-            String resp = service.deposito(numero, valor);
-            return "Saldo da conta " + resp + " atualizado";
+            return service.deposito(numero, valor);
         } catch (BadArgumentException e) {
             e.printStackTrace();
             return e.getMessage();
@@ -35,11 +34,7 @@ public class ContaController {
 
     public static String saque(Long numero, BigDecimal valor) {
         try {
-            if (ContaRepository.getInstance().getByNumero(numero).saque(valor)) {
-                return "Saque efetuado.";
-            } else {
-                return "Saldo insuficiente";
-            }
+            return service.saque(numero, valor);
         } catch (BadArgumentException e) {
             e.printStackTrace();
             return e.getMessage();
