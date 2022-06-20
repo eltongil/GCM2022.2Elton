@@ -76,4 +76,22 @@ public class ContaService {
 
         return "Transferência realizada com sucesso";
     }
+
+    public String saque(Long numero, BigDecimal valor) throws BadArgumentException {
+
+        if ( this.verificarNumeroDisponivel(numero) )
+            throw new BadArgumentException("Não existe Conta com esse número");
+
+        if (valor.compareTo(BigDecimal.ZERO) < 0)
+            throw new BadArgumentException("Não é possível sacar valores negativos");
+
+        ContaModel conta = this.repository.getByNumero(numero);
+
+        if (conta.getSaldo().compareTo(valor) < 0)
+            throw new BadArgumentException("O valor do saque deve ser menor que o saldo da conta");
+        else {
+            conta.setSaldo(conta.getSaldo().subtract(valor));
+            return "Saque realizado com sucesso";
+        }
+    }
 }

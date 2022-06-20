@@ -35,11 +35,7 @@ public class ContaController {
 
     public static String saque(Long numero, BigDecimal valor) {
         try {
-            if (ContaRepository.getInstance().getByNumero(numero).saque(valor)) {
-                return "Saque efetuado.";
-            } else {
-                return "Saldo insuficiente";
-            }
+            return service.saque(numero, valor);
         } catch (BadArgumentException e) {
             e.printStackTrace();
             return e.getMessage();
