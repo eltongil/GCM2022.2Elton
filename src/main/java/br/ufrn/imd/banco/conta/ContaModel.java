@@ -7,9 +7,9 @@ public class ContaModel {
     private Long numero;
     private BigDecimal saldo;
 
-    public ContaModel(long numero) {
+    public ContaModel(long numero, BigDecimal saldo) {
         this.numero = numero;
-        this.saldo = BigDecimal.ZERO;
+        this.saldo = saldo;
     }
 
     public Long getNumero() {

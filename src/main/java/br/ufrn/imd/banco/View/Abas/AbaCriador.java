@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 public class AbaCriador extends Aba {
 
     public AbaCriador() {
-        super("Criar", "Criação de contas", "Nova Conta", false);
+        super("Criar", "Criação de contas", "Nova Conta", true);
     }
 
     @Override
@@ -17,7 +17,7 @@ public class AbaCriador extends Aba {
             @Override
             public void handle(ActionEvent actionEvent) {
                 texto.setText(
-                        ContaController.adicionarConta(conta.getText()));
+                        ContaController.adicionarConta(conta.getText(), valor.getText()));
             }
         });
     }

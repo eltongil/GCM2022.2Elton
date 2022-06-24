@@ -13,9 +13,9 @@ public class ContaController {
         return singleton;
     }
 
-    public static String adicionarConta(String numero) {
+    public static String adicionarConta(String numero, String valor) {
         try {
-            service.addConta(numero);
+            service.addConta(numero, valor);
             return "Conta adicionada.";
         } catch (BadArgumentException e) {
             e.printStackTrace();

@@ -17,15 +17,28 @@ public class ContaService {
         return singleton;
     }
 
-    public void addConta(String numero) throws BadArgumentException {
+    public void addConta(String numero, String valor) throws BadArgumentException {
         this.verificarStringVazia(numero);
         this.verificarStringNumero(numero);
+        this.verificarStringDouble(valor);
         long numeroConta = Long.parseLong(numero);
-
+        BigDecimal saldo = BigDecimal.valueOf(Double.parseDouble(valor));
         if (this.verificarNumeroDisponivel(numeroConta))
-            repository.addCliente(new ContaModel(numeroConta));
+            repository.addCliente(new ContaModel(numeroConta, saldo));
         else
             throw new BadArgumentException("Já existe conta com esse número");
+    }
+
+    private void verificarStringDouble(String valor) throws BadArgumentException {
+
+        if (valor == null || valor.isBlank() || valor.isBlank())
+            throw new BadArgumentException("Insira um valor válido");
+
+        try {
+            Double.valueOf(valor);
+        } catch (NumberFormatException ex) {
+            throw new BadArgumentException("O número informado não é válido");
+        }
     }
 
     private void verificarStringNumero(String numero) throws BadArgumentException {
