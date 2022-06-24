@@ -98,7 +98,7 @@ public class ContaService {
         contaOrigem.setSaldo(contaOrigem.getSaldo().subtract(valor));
         ContaModel contaDestino = this.repository.getByNumero(numeroDestino);
         if (contaDestino instanceof ContaBonusModel) {
-            long bonus = Math.floorDiv(valor.longValue(), 200L);
+            long bonus = Math.floorDiv(valor.longValue(), 150L);
             ((ContaBonusModel) contaDestino).addBonus(bonus);
         }
 
