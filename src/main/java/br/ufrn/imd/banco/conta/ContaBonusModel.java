@@ -1,12 +1,15 @@
 package br.ufrn.imd.banco.conta;
 
+import java.math.BigDecimal;
+
 public class ContaBonusModel extends ContaModel {
 
     protected Long bonus;
 
-    public ContaBonusModel(long numero) {
+    public ContaBonusModel(long numero, BigDecimal saldo) {
         super(numero);
         this.bonus = 10l;
+        this.saldo = saldo;
     }
 
     public Long getBonus() {
