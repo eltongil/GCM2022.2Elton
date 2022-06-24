@@ -96,27 +96,30 @@ public class ContaService {
     public String saque(Long numero, BigDecimal valor) throws BadArgumentException {
 
         this.verificarSeNaoExisteConta(numero);
-
-        if (valor.compareTo(BigDecimal.ZERO) < 0)
-            throw new BadArgumentException("Não é possível sacar valores negativos");
+        this.verificarvalorNegativo(valor);
 
         ContaModel conta = this.repository.getByNumero(numero);
+        return this.saquePorTipoConta(conta, valor);
+    }
 
-        if (conta.getSaldo().compareTo(valor) < 0)
-            throw new BadArgumentException("O valor do saque deve ser menor que o saldo da conta");
-        else {
+    private String saquePorTipoConta(ContaModel conta, BigDecimal valor) throws BadArgumentException {
+        if (conta instanceof ContaPoupancaModel){
             conta.setSaldo(conta.getSaldo().subtract(valor));
+            return "Saque realizado c0om sucesso";
+        } else {
+            BigDecimal saldoFinal = conta.getSaldo().subtract(valor);
+            BigDecimal limiteMinimo = BigDecimal.valueOf(-1000);
+            if (saldoFinal.compareTo(limiteMinimo) < 0)
+                throw new BadArgumentException("Não há saldo suficiente para realizar o saque");
+            conta.setSaldo(saldoFinal);
             return "Saque realizado com sucesso";
         }
     }
 
     public String deposito(Long numero, BigDecimal valor) throws BadArgumentException {
 
-        if (valor.compareTo(BigDecimal.ZERO) < 0)
-            throw new BadArgumentException("Não é possível depositar valores negativos");
-
+        this.verificarvalorNegativo(valor);
         this.verificarSeNaoExisteConta(numero);
-
 
         ContaModel conta = this.repository.getByNumero(numero);
         conta.setSaldo(conta.getSaldo().add(valor));
@@ -168,6 +171,13 @@ public class ContaService {
     private void verificarStringVazia(String numero) throws BadArgumentException {
         if (numero.isBlank())
             throw new BadArgumentException("O numero de conta informado é vazio");
+    }
+
+    private void verificarvalorNegativo(BigDecimal numero) throws  BadArgumentException {
+
+        if (numero.compareTo(BigDecimal.ZERO) < 0)
+            throw new BadArgumentException("Valores negativos não são válidos para essa operação");
+
     }
 
 }
