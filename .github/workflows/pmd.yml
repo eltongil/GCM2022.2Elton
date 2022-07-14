@@ -55,6 +55,7 @@ jobs:
       - name: Generate Zip file for download
         run: mkdir Downloads
       - uses: vimtor/action-zip@v1
-          with: GMC2022.2ELTON_FRANCISO/target/banco*
+        with: 
+          files: GMC2022.2ELTON_FRANCISO/target/
           recursive: true
-          dest: sistema.zip
+          dest: Downloads/sistema.zip
