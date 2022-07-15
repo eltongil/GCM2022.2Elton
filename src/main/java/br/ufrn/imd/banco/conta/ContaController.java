@@ -13,10 +13,9 @@ public class ContaController {
         return singleton;
     }
 
-    public static String adicionarConta(String numero) {
+    public static String adicionarConta(String numero, String tipo, String valor) {
         try {
-            service.addConta(numero);
-            return "Conta adicionada.";
+            return service.criarConta(numero, tipo, valor);
         } catch (BadArgumentException e) {
             e.printStackTrace();
             return e.getMessage();
@@ -49,4 +48,14 @@ public class ContaController {
         }
     }
 
+    public String renderJuros(String numero, String valor) {
+
+        try {
+            String resp = service.renderJuros(numero, valor);
+            return resp;
+        } catch (BadArgumentException e) {
+            e.printStackTrace();
+            return e.getMessage();
+        }
+    }
 }
