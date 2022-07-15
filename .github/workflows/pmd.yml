@@ -53,9 +53,8 @@ jobs:
           sarif_file: pmd-report.sarif
           
       - name: Generate Zip file for download
-        run: mkdir Downloads
-      - uses: vimtor/action-zip@v1
+        uses: vimtor/action-zip@v1
         with: 
-          files: GMC2022.2ELTON_FRANCISO/target/
+          files: target/*
           recursive: true
-          dest: Downloads/sistema.zip
+          dest: sistema.zip
