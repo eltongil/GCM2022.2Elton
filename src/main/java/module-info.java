@@ -1,7 +1,6 @@
 module br.ufrn.imd.banco {
     requires transitive javafx.graphics;
     requires transitive javafx.controls;
-    requires javafx.fxml;
 
     opens br.ufrn.imd.banco to javafx.fxml;
     opens br.ufrn.imd.banco.conta to javafx.fxml;

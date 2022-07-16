@@ -6,6 +6,7 @@ target/*
 .idea/*
 banco.iml
 
+
 # Log file
 *.log
 
@@ -17,6 +18,7 @@ banco.iml
 *.zip
 *.tar.gz
 *.rar
+${project.build.directory}
 
 # From eclipse
 .classpath/*
