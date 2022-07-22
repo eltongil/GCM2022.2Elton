@@ -27,8 +27,10 @@ jobs:
           mvn assembly:single
 
       - name: Release jar
-        uses: ncipollo/release-action@v1
+        uses: xresloader/upload-to-github-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          artifacts: "target/*.jar"
-          token: ${{ secrets.YOUR_GITHUB_TOKEN }}
+          file: "target/*.jar"
+          tags: true
           
