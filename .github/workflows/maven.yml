@@ -30,5 +30,7 @@ jobs:
         ls -la
         mvn assembly:single
         ls -la
+        cd target
+        ls -la
     - name: Maven testes
       run: mvn clean test
