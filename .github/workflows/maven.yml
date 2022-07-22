@@ -23,6 +23,14 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: 
+        mvn clean
+        ls -la
+        mvn package
+        ls -la
+        mvn compile
+        ls -la
+        mvn assembly:single
+        ls -la
     - name: Maven testes
       run: mvn clean test
