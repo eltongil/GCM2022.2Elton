@@ -7,7 +7,7 @@ name: pmd
 
 on:
   push:
-    branches: [ "release-01","release-02"]
+    branches: [ "release-*" ]
   pull_request:
     branches: [ "development" ]
   schedule:

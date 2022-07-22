@@ -4,7 +4,7 @@ name: Release with maven
 on:
   push:
     tags:
-      - 'v*'
+      - 'v*rc'
 
 jobs:
 
@@ -30,4 +30,5 @@ jobs:
         with:
           file: "target/*.jar"
           tags: true
+          draft: false
           
