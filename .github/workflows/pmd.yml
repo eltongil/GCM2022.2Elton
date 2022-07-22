@@ -65,10 +65,3 @@ jobs:
           files: target/*
           recursive: true
           dest: sistema.zip
-
-      - name : Release Files
-        uses: JasonEtco/upload-to-release@master
-        with:
-          args: target/banco-1.1-jar-with-dependencies.jar sistema.zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

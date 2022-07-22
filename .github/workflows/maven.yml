@@ -31,9 +31,3 @@ jobs:
         mvn clean
         mvn compile
         mvn assembly:single
-
-    - name: Release Files
-      uses: AButler/upload-release-assets@v2.0
-      with:
-        files: 'target/*.jar; *.zip'
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
