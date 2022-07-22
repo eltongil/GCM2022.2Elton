@@ -34,8 +34,7 @@ jobs:
       run: mvn clean test
 
     - name: Release Files
-      uses: JasonEtco/upload-to-release@master
+      uses: AButler/upload-release-assets@v2.0
       with:
-        args: target/banco-1.1-jar-with-dependencies.jar sistema.zip
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        files: 'target/*.jar; *.zip'
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
