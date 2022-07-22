@@ -34,7 +34,7 @@ jobs:
         run: mvn dependency:resolve        
       
       - name: build project with Maven
-        run: mvn clean compile assembly:single
+        run: mvn -B package --file pom.xml
                 
       - name: Run PMD
         id: pmd
