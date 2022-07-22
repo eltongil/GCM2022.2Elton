@@ -21,10 +21,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build with Maven
-        run: |
-          mvn clean
-          mvn compile
-          mvn assembly:single
+        run: mvn -B package --file pom.xml
 
       - name: Release jar
         uses: xresloader/upload-to-github-release@v1
