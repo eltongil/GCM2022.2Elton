@@ -26,8 +26,6 @@ jobs:
       run: |
         mvn clean
         ls -la
-        mvn package
-        ls -la
         mvn compile
         ls -la
         mvn assembly:single
