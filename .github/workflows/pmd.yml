@@ -31,10 +31,22 @@ jobs:
           distribution: 'temurin'
           
       - name: Maven resolve dependencies
-        run: mvn dependency:resolve        
+        run: mvn dependency:resolve
+
+      - name: check files
+        run:
+          ls -a
       
       - name: build project with Maven
-        run: mvn -B package --file pom.xml
+        run:
+          mvn clean
+          ls -la
+          mvn package
+          ls -la
+          mvn compile
+          ls -la
+          mvn assembly:single
+          ls -la
                 
       - name: Run PMD
         id: pmd
